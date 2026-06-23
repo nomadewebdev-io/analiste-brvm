@@ -1,0 +1,23 @@
+# Dépendances
+node_modules/
+**/node_modules/
+
+# Secrets — NE JAMAIS committer la clé d'API
+.env
+**/.env
+*.local
+
+# Données locales du portefeuille (restent sur ta machine)
+server/data/data.json
+
+# Build
+web/dist/
+**/dist/
+
+# Logs / divers
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
