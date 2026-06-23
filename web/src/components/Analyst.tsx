@@ -14,7 +14,12 @@ export function Analyst() {
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [apiReady, setApiReady] = useState<boolean | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    api.aiStatus().then((s) => setApiReady(s.configured)).catch(() => setApiReady(false));
+  }, []);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -52,6 +57,15 @@ export function Analyst() {
           ) : undefined
         }
       />
+
+      {apiReady === false && (
+        <div className="mb-3 rounded-lg border border-loss/40 bg-loss/10 px-4 py-3 text-sm text-loss">
+          <strong>Clé d'API manquante.</strong> Copie{" "}
+          <code className="rounded bg-loss/10 px-1">.env.example</code> vers{" "}
+          <code className="rounded bg-loss/10 px-1">server/.env</code> et renseigne{" "}
+          <code className="rounded bg-loss/10 px-1">ANTHROPIC_API_KEY</code>, puis relance le serveur.
+        </div>
+      )}
 
       <div className="mb-3">
         <Disclaimer />

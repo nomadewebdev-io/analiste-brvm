@@ -52,6 +52,8 @@ export const api = {
   reset: (seed: boolean) =>
     req<PortfolioState>("/api/reset", { method: "POST", body: JSON.stringify({ seed }) }),
 
+  aiStatus: () => req<{ configured: boolean }>("/api/ai-status"),
+
   chat: (messages: ChatMessage[]) =>
     req<{ text: string; usedWebSearch: boolean }>("/api/chat", {
       method: "POST",

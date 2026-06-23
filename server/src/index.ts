@@ -24,6 +24,13 @@ app.use(express.json({ limit: "1mb" }));
 const newId = () =>
   globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
+// ── Statut de la clé IA (permet au frontend d'afficher un avertissement) ──
+app.get("/api/ai-status", (_req, res) => {
+  const key = process.env.ANTHROPIC_API_KEY;
+  const configured = Boolean(key && !key.startsWith("sk-ant-xxxx"));
+  res.json({ configured });
+});
+
 // ── État complet (positions calculées + résumé + séries) ────────
 app.get("/api/state", (_req, res) => {
   res.json(buildState(load()));
