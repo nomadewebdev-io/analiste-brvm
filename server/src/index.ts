@@ -18,8 +18,13 @@ loadEnv({ path: join(__dirname, "..", ".env") });
 const PORT = Number(process.env.PORT || 8787);
 
 const app = express();
-// Restreint les requêtes cross-origin au frontend local uniquement
-app.use(cors({ origin: [`http://localhost:5173`, `http://localhost:${PORT}`] }));
+// Origines autorisées : localhost en dev + domaine Netlify en prod (FRONTEND_URL)
+const allowedOrigins = [
+  `http://localhost:5173`,
+  `http://localhost:${PORT}`,
+  ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL.replace(/\/$/, "")] : []),
+];
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json({ limit: "1mb" }));
 const newId = () =>
   globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`;
