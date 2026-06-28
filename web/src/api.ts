@@ -1,9 +1,7 @@
 import type { ChatMessage, PortfolioState, TickerRef, TxType } from "./types.ts";
 
-const BASE = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
-
 async function req<T>(url: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE}${url}`, {
+  const res = await fetch(url, {
     headers: { "content-type": "application/json" },
     ...init,
   });
