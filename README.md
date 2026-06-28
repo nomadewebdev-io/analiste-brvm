@@ -79,6 +79,16 @@ npm start              # le backend sert alors aussi le frontend buildé sur htt
 
 ---
 
+## 🌐 Déploiement
+
+L'app est déployée sur Railway (frontend + backend ensemble) :
+
+**https://web-production-f55b4.up.railway.app**
+
+Le déploiement est configuré via [`railway.json`](railway.json) : Railway exécute `npm run build` puis `npm start` automatiquement à chaque push sur `main`.
+
+---
+
 ## ⚙️ Configuration (`server/.env`)
 
 | Variable | Rôle | Défaut |
